@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Prevenção - BeSafe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+        .section-title {
+            border-left: 4px solid #0d6efd;
+            padding-left: 10px;
+            margin-bottom: 1rem;
+        }
+        .card-custom {
+            min-height: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/home}">BeSafe</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+                <!-- Dropdown Guias e Prevenção -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="guiaDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Guias e Prevenção
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="guiaDropdown">
+                        <li><a class="dropdown-item" th:href="@{/preparacao}">Guia de Preparação</a></li>
+                        <li><a class="dropdown-item" th:href="@{/publico-especifico}">Orientações para Crianças, Idosos, PCDs e Animais</a></li>
+                        <li><a class="dropdown-item" th:href="@{/cuidados-pos-desastre}">Cuidados Pós-Desastre</a></li>
+                    </ul>
+                </li>
+
+                <!-- Página Contato -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/contato}">Contato</a>
+                </li>
+
+                <!-- Menu Conta -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle"></i> Minha Conta
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
+                        <li><a class="dropdown-item" th:href="@{/perfil}">Perfil</a></li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit" class="dropdown-item text-danger">Sair</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Conteúdo Principal -->
+<main class="container mt-5 mb-5">
+    <h1 class="mb-4 text-center">Guia de Prevenção Contra Enchentes</h1>
+
+    <p>
+        Estar preparado é a melhor forma de enfrentar as enchentes e minimizar os danos causados por elas. Este guia apresenta orientações práticas e eficazes para que você possa proteger a sua residência, sua família e seus bens em situações de risco.
+    </p>
+
+    <section class="mb-5">
+        <h2 class="section-title">1. Como se Preparar Antes da Enchente</h2>
+        <ul>
+            <li><strong>Monitore os alertas meteorológicos:</strong> Fique atento às informações divulgadas pelos órgãos oficiais e mantenha canais de comunicação abertos para receber avisos em tempo real.</li>
+            <li><strong>Planeje uma rota de evacuação segura:</strong> Saiba antecipadamente quais os caminhos mais seguros para sair da sua casa e para onde se dirigir em caso de emergência.</li>
+            <li><strong>Monte um kit de emergência:</strong> Inclua itens como água potável, alimentos não perecíveis, medicamentos, documentos importantes, lanterna, rádio portátil e carregadores de celular.</li>
+            <li><strong>Tenha contatos de emergência acessíveis:</strong> Cadastre números de bombeiros, defesa civil, centros de apoio e familiares em local de fácil acesso.</li>
+        </ul>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="section-title">2. Como Proteger Sua Residência</h2>
+        <ul>
+            <li><strong>Eleve equipamentos e móveis:</strong> Coloque objetos de valor e equipamentos eletrônicos em locais altos para evitar danos causados pela água.</li>
+            <li><strong>Impermeabilize paredes e portas:</strong> Utilize materiais resistentes à água, como mantas asfálticas e fitas impermeabilizantes para proteger entradas e paredes.</li>
+            <li><strong>Limpe e desobstrua calhas e bueiros:</strong> Garanta que o escoamento da água não seja impedido por entulhos, folhas ou lixo.</li>
+            <li><strong>Instale barreiras temporárias:</strong> Use sacos de areia ou barreiras de contenção para minimizar a entrada de água na casa.</li>
+        </ul>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="section-title">3. Como Reduzir os Danos Durante a Enchente</h2>
+        <ul>
+            <li><strong>Desligue a energia elétrica:</strong> Antes que a água entre na residência, desligue o disjuntor geral para evitar riscos de choque elétrico.</li>
+            <li><strong>Evite contato com a água:</strong> A água da enchente pode estar contaminada com produtos químicos, esgoto e outros agentes nocivos.</li>
+            <li><strong>Proteja documentos e objetos pessoais:</strong> Mantenha-os em sacos plásticos impermeáveis ou caixas herméticas.</li>
+            <li><strong>Se necessário, evacue a área:</strong> Não hesite em deixar o local se a situação apresentar risco à vida. Siga as rotas e orientações definidas no seu plano de emergência.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2 class="section-title">4. Dicas Extras para Segurança</h2>
+        <ul>
+            <li><strong>Informe vizinhos e familiares:</strong> Compartilhe seu plano e os riscos para que todos estejam preparados.</li>
+            <li><strong>Não dirija em áreas alagadas:</strong> Carros podem ser arrastados ou parar de funcionar subitamente em enchentes.</li>
+            <li><strong>Mantenha animais de estimação em local seguro:</strong> Garanta a segurança e conforto deles durante a situação de risco.</li>
+            <li><strong>Após a enchente, cuide da limpeza com segurança:</strong> Use equipamentos de proteção, evite contato direto com a água suja e higienize a casa adequadamente para evitar doenças.</li>
+        </ul>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-3">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <p class="mb-2 mb-md-0">&copy; 2025 BeSafe. Todos os direitos reservados.</p>
+        <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+                <a href="mailto:contato@besafe.org" class="text-white text-decoration-none">contato@besafe.org</a>
+            </li>
+            <li class="list-inline-item">|</li>
+            <li class="list-inline-item">
+                <a href="#" class="text-white text-decoration-none">Política de Privacidade</a>
+            </li>
+            <li class="list-inline-item">|</li>
+            <li class="list-inline-item">
+                <a href="#" class="text-white text-decoration-none">Termos de Uso</a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
