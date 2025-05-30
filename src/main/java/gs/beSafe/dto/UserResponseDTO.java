@@ -1,23 +1,28 @@
-package dto;
+package gs.beSafe.dto;
 
-public class UserCreateDTO {
+public class UserResponseDTO {
 
+    private Long id;
     private String nome;
-
     private String email;
-
-    private String senha;
-
     private Integer roleId;
 
-    public UserCreateDTO() {
+    public UserResponseDTO() {
     }
 
-    public UserCreateDTO(String nome, String email, String senha, Integer roleId) {
+    public UserResponseDTO(Long id, String nome, String email, Integer roleId) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
-        this.senha = senha;
         this.roleId = roleId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -36,14 +41,6 @@ public class UserCreateDTO {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public Integer getRoleId() {
         return roleId;
     }
@@ -51,4 +48,5 @@ public class UserCreateDTO {
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
+
 }

@@ -1,10 +1,12 @@
 package gs.beSafe.service;
 
-import dto.UserCreateDTO;
-import dto.UserResponseDTO;
+import gs.beSafe.dto.UserCreateDTO;
+import gs.beSafe.dto.UserResponseDTO;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import repository.RoleRepository;
-import repository.UserRepository;
+import gs.beSafe.repository.RoleRepository;
+import gs.beSafe.repository.UserRepository;
 import gs.beSafe.model.Role;
 import gs.beSafe.model.User;
 import jakarta.transaction.Transactional;
@@ -37,7 +39,7 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(), true,true,true, true, user.getAuthorities());
     }
 
-    private UserResponseDTO converterEntityParaResponseDTO (User user) {
+    public UserResponseDTO converterEntityParaResponseDTO(User user) {
         return new UserResponseDTO(
                 user.getId(),
                 user.getNome(),
@@ -45,6 +47,20 @@ public class UserService implements UserDetailsService {
                 user.getRole().getRoleId()
         );
     }
+
+    public User obterUsuarioLogado() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+    }
+
+    public UserResponseDTO obterUsuarioLogadoDTO() {
+        User user = obterUsuarioLogado();
+        return converterEntityParaResponseDTO(user);
+    }
+
+
 
     public User buscarUsuario (Long id) {
         User user = userRepository.findById(id).
@@ -67,23 +83,31 @@ public class UserService implements UserDetailsService {
         return converterEntityParaResponseDTO(user);
     }
 
-    public UserResponseDTO atualizarEmail(Long id, String email) {
-        User user = buscarUsuario(id);
+    public UserResponseDTO atualizarEmail(String email) {
+        User user = obterUsuarioLogado();
+
+        if (!user.getEmail().equals(email)) {
+            if (userRepository.findByEmail(email).isPresent()) {
+                throw new RuntimeException("E-mail já cadastrado.");
+            }
+        }
+
         user.setEmail(email);
         userRepository.save(user);
         return converterEntityParaResponseDTO(user);
     }
 
-    public UserResponseDTO atualizarSenha(Long id, String senha) {
-        User user = buscarUsuario(id);
-        user.setSenha(passwordEncoder.encode(senha));
+
+    public UserResponseDTO atualizarSenha(String novaSenha) {
+        User user = obterUsuarioLogado();
+        user.setSenha(passwordEncoder.encode(novaSenha));
         userRepository.save(user);
         return converterEntityParaResponseDTO(user);
     }
 
 
-    public void deletarUsuario (Long id) {
-        User user = buscarUsuario(id);
+    public void deletarUsuario () {
+        User user = obterUsuarioLogado();
         userRepository.delete(user);
     }
 

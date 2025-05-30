@@ -9,20 +9,24 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "TB_USER")
+@Table(name = "TB_USERS")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "NOME")
     private String nome;
 
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
+    @Column(name = "SENHA")
     private String senha;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
 
     @Override
