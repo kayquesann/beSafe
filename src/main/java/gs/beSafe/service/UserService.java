@@ -1,7 +1,9 @@
 package gs.beSafe.service;
 
+import gs.beSafe.config.RabbitConfig;
 import gs.beSafe.dto.UserCreateDTO;
 import gs.beSafe.dto.UserResponseDTO;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,11 +27,13 @@ public class UserService implements UserDetailsService {
     final UserRepository userRepository;
     final RoleRepository roleRepository;
     final PasswordEncoder passwordEncoder;
+    final RabbitTemplate rabbitTemplate;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, RabbitTemplate rabbitTemplate) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
@@ -80,6 +84,7 @@ public class UserService implements UserDetailsService {
         user.setSenha(passwordEncoder.encode(userCreateDTO.getSenha()));
         user.setRole(role);
         userRepository.save(user);
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_NAME,RabbitConfig.ROUTING_KEY,userCreateDTO);
         return converterEntityParaResponseDTO(user);
     }
 
