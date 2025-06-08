@@ -30,6 +30,11 @@ na recuperação, protegendo vidas, lares e comunidades.
 ## Video PITCH do projeto
 [VIDEO PITCH](https://youtu.be/OKqI3D1RpQE)
 
+🚀 Acesse a Aplicação
+Você pode acessar a aplicação diretamente através do IP público abaixo:
+
+👉 http://20.246.224.138:8080/
+
 
 ## Instruções para Rodar a Aplicação
 
